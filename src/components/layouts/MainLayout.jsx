@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <main className="bg-gray-200 min-h-screen">
       <Navbar />
-      <div className="flex flex-col px-12">
+      <div className="flex flex-col px-5 md:px-12">
         <Outlet />
       </div>
     </main>

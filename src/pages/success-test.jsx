@@ -1,7 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SuccessTest = () => {
+  const state = useLocation().state;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!state?.duration) {
+      navigate("/");
+    }
+  }, [state, navigate]);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="flex flex-col border-blue-500 items-center justify-center px-5 py-8 border rounded w-full mt-5">
@@ -9,9 +18,9 @@ const SuccessTest = () => {
         <span className="mt-4">Your result will be sent to</span>
         <span className="font-semibold text-xl mt-1">ELC</span>
         <span className="mt-4">Test time</span>
-        <span className="font-semibold text-xl mt-1">19:22</span>
+        <span className="font-semibold text-xl mt-1">{state?.duration}</span>
         <span className="mt-4">Test date</span>
-        <span className="font-semibold text-xl mt-1">19 / 22 / 22</span>
+        <span className="font-semibold text-xl mt-1">{state?.created_at}</span>
       </div>
       <Link to="/" className="underline text-sm mt-5">
         back to ELC online test
