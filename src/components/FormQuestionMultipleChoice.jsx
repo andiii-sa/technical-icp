@@ -29,10 +29,10 @@ const FormQuestionMultipleChoice = ({
       </p>
       <div className="grid grid-cols-1 md:grid-rows-3 md:grid-flow-col gap-5">
         {questions?.map((question, idx) => (
-          <div key={idx} className="flex flex-col gap-1">
-            <span className="font-bold text-lg">{`${idxNumber(idx)}. ${
-              question?.question
-            }`}</span>
+          <div key={idx} className="flex flex-col gap-1 quest md:w-[45vw]">
+            <span className="font-bold text-lg whitespace-break-spaces">{`${idxNumber(
+              idx
+            )}. ${question?.question}`}</span>
             <div className="grid grid-cols-2 gap-1">
               {question?.option?.map((opt, idy) => (
                 <div
@@ -46,7 +46,9 @@ const FormQuestionMultipleChoice = ({
                   onClick={() => handleAnswer(question?.id, opt?.key)}
                 >
                   <span className="uppercase">{`${opt?.key}. `}</span>
-                  <span className="">{opt?.text}</span>
+                  <span className="whitespace-break-spaces break-all ">
+                    {opt?.text}
+                  </span>
                 </div>
               ))}
             </div>

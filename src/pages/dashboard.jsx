@@ -65,18 +65,7 @@ const Dashboard = () => {
     age: "",
   });
 
-  const [profile, setProfile] = useState({
-    name: "uchia sasule",
-    email: "sasuleh@yopmail.com",
-    phone: "083211112222",
-    age: "19",
-    study_plan: null,
-    updated_at: "2024-01-22T05:33:02.000000Z",
-    created_at: "2024-01-22T05:33:02.000000Z",
-    id: 222,
-    student_answer_id: 286,
-    set_question: "SetB",
-  });
+  const [profile, setProfile] = useState(null);
 
   const handleStartTimer = () => {
     if (isRunningTimer) return;
@@ -150,8 +139,12 @@ const Dashboard = () => {
 
         const res = await ApiCreateStudent(formProfile);
         if (res?.status === 200) {
+          const params = {
+            student_id: res?.data?.data?.id,
+            set_question: res?.data?.data?.set_question,
+          };
           setProfile(res?.data?.data);
-          getQuestion();
+          getQuestion(params);
           handleStartTimer();
         }
       }
@@ -160,12 +153,8 @@ const Dashboard = () => {
     }
   };
 
-  const getQuestion = async () => {
+  const getQuestion = async (params) => {
     try {
-      const params = {
-        student_id: profile?.id,
-        set_question: profile?.set_question,
-      };
       const res = await ApiGetListQuestion(params);
       setQuestions(res?.data ?? []);
       setAnswerQuestion(
@@ -250,6 +239,11 @@ const Dashboard = () => {
             });
           }
         });
+      } else {
+        MySwal.fire({
+          title: <p>Something wrong in response api</p>,
+          icon: "error",
+        });
       }
     } catch (error) {
       console.log("error", error);
@@ -284,10 +278,12 @@ const Dashboard = () => {
 
   return (
     <div className="w-full py-5">
-      <div className="flex flex-col justify-center items-center mb-5">
-        <span>{`${hours} : ${minutes} : ${seconds}`}</span>
-        <span>{`Date: ${dateNow.getDate()} / ${dateNow.getMonth()} / ${dateNow.getFullYear()}`}</span>
-      </div>
+      {activeStep !== "" && (
+        <div className="flex flex-col justify-center items-center mb-5">
+          <span>{`${hours} : ${minutes}`}</span>
+          <span>{`Date: ${dateNow.getDate()} / ${dateNow.getMonth()} / ${dateNow.getFullYear()}`}</span>
+        </div>
+      )}
       <Steps items={steps} active={activeStep} />
       {activeStep === "" && (
         <FormProfile
