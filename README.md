@@ -1,3 +1,10 @@
+# How to install
+
+1. Clone repository ini
+2. masuk kedalam directory
+3. ketikkan "npm install"
+4. ketikkan "npm start"
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

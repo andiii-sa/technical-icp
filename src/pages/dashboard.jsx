@@ -75,7 +75,7 @@ const Dashboard = () => {
     }, 1000);
   };
 
-  const { hours, minutes, seconds } = formatTime(timer);
+  const { hours, minutes } = formatTime(timer);
 
   const handleActiveStep = (step) => {
     setActiveStep(step);
