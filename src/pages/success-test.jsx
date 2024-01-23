@@ -20,7 +20,7 @@ const SuccessTest = () => {
         <span className="mt-4">Test time</span>
         <span className="font-semibold text-xl mt-1">{state?.duration}</span>
         <span className="mt-4">Test date</span>
-        <span className="font-semibold text-xl mt-1">{state?.created_at}</span>
+        <span className="font-semibold text-xl mt-1">{state?.date}</span>
       </div>
       <Link to="/" className="underline text-sm mt-5">
         back to ELC online test

@@ -146,6 +146,11 @@ const Dashboard = () => {
           setProfile(res?.data?.data);
           getQuestion(params);
           handleStartTimer();
+        } else {
+          MySwal.fire({
+            title: <p>Something wrong in api</p>,
+            icon: "error",
+          });
         }
       }
     } catch (error) {
@@ -223,28 +228,25 @@ const Dashboard = () => {
 
       console.log("result", result);
 
-      if (result?.status === 200) {
-        MySwal.fire({
-          title: <p>Success</p>,
-          text: "You have completed all tests! Please claim your results at the Yes2Malaysia Info Day",
-          icon: "success",
-          allowOutsideClick: false,
-        }).then((res) => {
-          if (res.isConfirmed) {
-            navigate("/success-test", {
-              state: {
-                duration: result?.data?.duration,
-                date: result?.data?.created_at,
-              },
-            });
-          }
-        });
-      } else {
-        MySwal.fire({
-          title: <p>Something wrong in response api</p>,
-          icon: "error",
-        });
-      }
+      MySwal.fire({
+        title: <p>Success</p>,
+        text: "You have completed all tests! Please claim your results at the Yes2Malaysia Info Day",
+        icon: "success",
+        allowOutsideClick: false,
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/success-test", {
+            state: {
+              duration: result?.data?.duration || `${hours}:${minutes}`,
+              date:
+                result?.data?.created_at ||
+                `${dateNow.getDate()} / ${
+                  dateNow.getMonth() + 1
+                } / ${dateNow.getFullYear()}`,
+            },
+          });
+        }
+      });
     } catch (error) {
       console.log("error", error);
     }
@@ -281,7 +283,9 @@ const Dashboard = () => {
       {activeStep !== "" && (
         <div className="flex flex-col justify-center items-center mb-5">
           <span>{`${hours} : ${minutes}`}</span>
-          <span>{`Date: ${dateNow.getDate()} / ${dateNow.getMonth()} / ${dateNow.getFullYear()}`}</span>
+          <span>{`Date: ${dateNow.getDate()} / ${
+            dateNow.getMonth() + 1
+          } / ${dateNow.getFullYear()}`}</span>
         </div>
       )}
       <Steps items={steps} active={activeStep} />
