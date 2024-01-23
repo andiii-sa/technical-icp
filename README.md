@@ -4,6 +4,9 @@
 2. masuk kedalam directory
 3. ketikkan "npm install"
 4. ketikkan "npm start"
+5. Jika dalam penggunaan api, mengalami cors, silahkan menggunakan browser without cors.
+   Silahkan dilihat tutorial membuka chrome without cors
+   https://alfilatov.com/posts/run-chrome-without-cors/
 
 # Getting Started with Create React App
 
